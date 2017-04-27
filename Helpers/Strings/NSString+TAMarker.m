@@ -80,7 +80,6 @@
 	if([self hasMarkers] == NO)
 		return self;
 	
-	NSMutableArray *currentStack = items.mutableCopy;
 	NSString *resolved = [self stringByResolvingMarkersUsingBlock:^NSString * _Nullable(NSString * _Nonnull marker) {
 		if(*itemName)
 			return nil;
@@ -90,7 +89,7 @@
 			return nil;
 		}
 		
-		[currentStack addObject:marker];
+		NSArray *currentStack = [items arrayByAddingObject:marker];
 		
 		NSString *newString = block(marker);
 		
@@ -113,7 +112,7 @@
 }
 
 
-- (NSString *_Nonnull)stringByResolvingMarkersUsingBlock:(NSString *_Nullable(^_Nullable)(NSString * _Nonnull marker))block
+- (NSString *_Nonnull)stringByResolvingMarkersRecursiveUsingBlock:(NSString *_Nullable(^_Nullable)(NSString * _Nonnull marker))block
 												   error:(NSError *_Nullable*_Nullable)error {
 	NSMutableArray *trace = @[].mutableCopy;
 	NSString *failedItem = nil;

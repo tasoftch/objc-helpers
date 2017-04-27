@@ -42,8 +42,21 @@
 
 // Recursively resolution of markers. It will resolve each marker until its resolution does not produce more markers.
 // The execution stops, if there is a recursion and a detailed error report is registered.
+// If a recursion error occures, it stops the interpolation of further markers.
 - (NSString *)stringByResolvingMarkersRecursiveUsingBlock:(NSString *(^)(NSString *  marker))block error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
 
 // Same mechanism but taking marker contents from a dictionary.
 - (NSString *)stringByResolvingMarkersRecursiveUsingDictionary:(NSDictionary <NSString*,NSString*> *)dictionary error:(NSError * *)error;
 @end
+
+
+// If an error occures, the user info of the error object may contain the following keys
+
+// NSValue containing the failed marker range in the original string
+extern NSString const *TAOriginalMarkerRangeErrorKey;
+
+// NSValue containing the failed marker range in the resolved string.
+extern NSString const *TAResolvedMarkerRangeErrorKey;
+
+
+

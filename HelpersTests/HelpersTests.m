@@ -53,4 +53,38 @@ static NSDictionary *generalMarkers = nil;
 	XCTAssertEqualObjects(@"Hello HAM $(T3) und $(REQ3)", result);
 }
 
+- (void)testRepeatlyMarkersOneLevel {
+	NSString *result = [@"Hello $(HELLO) $(HELLO)" stringByResolvingMarkersUsingDictionary:generalMarkers];
+	XCTAssertEqualObjects(@"Hello World! World!", result);
+}
+
+- (void)testRecursiveMarkers {
+	NSError *error = nil;
+	NSString *result = [@"Hello $(T3)" stringByResolvingMarkersRecursiveUsingDictionary:generalMarkers error:&error];
+	XCTAssertEqualObjects(@"Hello NAWH MIR Was World!", result);
+	XCTAssertNil(error);
+}
+
+- (void)testRecursiveMarkersRepeatly {
+	NSError *error = nil;
+	NSString *result = [@"Hello $(T3) $(HELLO) $(HELLO)" stringByResolvingMarkersRecursiveUsingDictionary:generalMarkers error:&error];
+	XCTAssertEqualObjects(@"Hello NAWH MIR Was World! World! World!", result);
+	XCTAssertNil(error);
+}
+
+- (void)testRecursiveMarkersRepeatlyNonRecursive {
+	NSError *error = nil;
+	NSString *result = [@"Hello $(T3) $(HELLO) $(MAL)" stringByResolvingMarkersRecursiveUsingDictionary:generalMarkers error:&error];
+	XCTAssertEqualObjects(@"Hello NAWH MIR Was World! World! LAS World!", result);
+	XCTAssertNil(error);
+}
+
+- (void)testRecursiveMarkersWithRecursion {
+	NSError *error = nil;
+	NSString *result = [@"Hello $(REQ)" stringByResolvingMarkersRecursiveUsingDictionary:generalMarkers error:&error];
+	XCTAssertEqualObjects(@"Hello HAM NAWH MIR Was World! und MANS $(REQ)", result);
+	XCTAssertNotNil(error);
+	XCTAssertEqualObjects(@"REQ", [error.userInfo objectForKey:@""]);
+}
+
 @end
