@@ -10,16 +10,25 @@
 		E9AE30AA1EB16D9A002B13DF /* HelpersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30A91EB16D9A002B13DF /* HelpersTests.m */; };
 		E9AE30B71EB16EFC002B13DF /* NSString+TAMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30B41EB16E2D002B13DF /* NSString+TAMarker.m */; };
 		E9AE30BE1EB1E304002B13DF /* TADelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30BD1EB1E304002B13DF /* TADelegate.m */; };
+		E9AE30C21EB1E3EB002B13DF /* NSObject+TAKVOAddon.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30C11EB1E3EB002B13DF /* NSObject+TAKVOAddon.m */; };
+		E9AE30C81EB1E46C002B13DF /* NSString+TAPath.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30C71EB1E46C002B13DF /* NSString+TAPath.m */; };
+		E9AE30CD1EB1E4C7002B13DF /* NSView+TAViewStacking.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30CC1EB1E4C7002B13DF /* NSView+TAViewStacking.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E9AE30A71EB16D9A002B13DF /* HelpersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelpersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9AE30A91EB16D9A002B13DF /* HelpersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpersTests.m; sourceTree = "<group>"; };
 		E9AE30AB1EB16D9A002B13DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9AE30B31EB16E2D002B13DF /* NSString+TAMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TAMarker.h"; sourceTree = "<group>"; };
 		E9AE30B41EB16E2D002B13DF /* NSString+TAMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TAMarker.m"; sourceTree = "<group>"; };
-		E9AE30BC1EB1E304002B13DF /* TADelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADelegate.h; sourceTree = "<group>"; };
 		E9AE30BD1EB1E304002B13DF /* TADelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADelegate.m; sourceTree = "<group>"; };
+		E9AE30C11EB1E3EB002B13DF /* NSObject+TAKVOAddon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TAKVOAddon.m"; sourceTree = "<group>"; };
+		E9AE30C31EB1E42C002B13DF /* NSObject+TAKVOAddon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TAKVOAddon.h"; sourceTree = "<group>"; };
+		E9AE30C41EB1E42C002B13DF /* NSString+TAMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TAMarker.h"; sourceTree = "<group>"; };
+		E9AE30C51EB1E42C002B13DF /* TADelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADelegate.h; sourceTree = "<group>"; };
+		E9AE30C71EB1E46C002B13DF /* NSString+TAPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TAPath.m"; sourceTree = "<group>"; };
+		E9AE30C91EB1E48E002B13DF /* NSString+TAPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TAPath.h"; sourceTree = "<group>"; };
+		E9AE30CC1EB1E4C7002B13DF /* NSView+TAViewStacking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+TAViewStacking.m"; sourceTree = "<group>"; };
+		E9AE30CE1EB1E4E8002B13DF /* NSView+TAViewStacking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+TAViewStacking.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +45,11 @@
 		E9AE308E1EB16D86002B13DF = {
 			isa = PBXGroup;
 			children = (
+				E9AE30CE1EB1E4E8002B13DF /* NSView+TAViewStacking.h */,
+				E9AE30C31EB1E42C002B13DF /* NSObject+TAKVOAddon.h */,
+				E9AE30C41EB1E42C002B13DF /* NSString+TAMarker.h */,
+				E9AE30C51EB1E42C002B13DF /* TADelegate.h */,
+				E9AE30C91EB1E48E002B13DF /* NSString+TAPath.h */,
 				E9AE30A81EB16D9A002B13DF /* HelpersTests */,
 				E9AE30991EB16D86002B13DF /* Products */,
 			);
@@ -54,6 +68,8 @@
 			children = (
 				E9AE30B21EB16DF0002B13DF /* Strings */,
 				E9AE30BB1EB1E233002B13DF /* Delegate */,
+				E9AE30BF1EB1E3AE002B13DF /* Objects */,
+				E9AE30CA1EB1E4A6002B13DF /* Views */,
 				E9AE30A91EB16D9A002B13DF /* HelpersTests.m */,
 				E9AE30AB1EB16D9A002B13DF /* Info.plist */,
 			);
@@ -63,8 +79,8 @@
 		E9AE30B21EB16DF0002B13DF /* Strings */ = {
 			isa = PBXGroup;
 			children = (
-				E9AE30B31EB16E2D002B13DF /* NSString+TAMarker.h */,
 				E9AE30B41EB16E2D002B13DF /* NSString+TAMarker.m */,
+				E9AE30C71EB1E46C002B13DF /* NSString+TAPath.m */,
 			);
 			name = Strings;
 			path = ../Helpers/Strings;
@@ -73,11 +89,28 @@
 		E9AE30BB1EB1E233002B13DF /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				E9AE30BC1EB1E304002B13DF /* TADelegate.h */,
 				E9AE30BD1EB1E304002B13DF /* TADelegate.m */,
 			);
 			name = Delegate;
 			path = ../Helpers/Delegate;
+			sourceTree = "<group>";
+		};
+		E9AE30BF1EB1E3AE002B13DF /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				E9AE30C11EB1E3EB002B13DF /* NSObject+TAKVOAddon.m */,
+			);
+			name = Objects;
+			path = ../Helpers/Objects;
+			sourceTree = "<group>";
+		};
+		E9AE30CA1EB1E4A6002B13DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9AE30CC1EB1E4C7002B13DF /* NSView+TAViewStacking.m */,
+			);
+			name = Views;
+			path = ../Helpers/Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,8 +181,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9AE30AA1EB16D9A002B13DF /* HelpersTests.m in Sources */,
+				E9AE30CD1EB1E4C7002B13DF /* NSView+TAViewStacking.m in Sources */,
 				E9AE30B71EB16EFC002B13DF /* NSString+TAMarker.m in Sources */,
+				E9AE30C21EB1E3EB002B13DF /* NSObject+TAKVOAddon.m in Sources */,
 				E9AE30BE1EB1E304002B13DF /* TADelegate.m in Sources */,
+				E9AE30C81EB1E46C002B13DF /* NSString+TAPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
