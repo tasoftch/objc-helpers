@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E9AE30AA1EB16D9A002B13DF /* HelpersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30A91EB16D9A002B13DF /* HelpersTests.m */; };
 		E9AE30B71EB16EFC002B13DF /* NSString+TAMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30B41EB16E2D002B13DF /* NSString+TAMarker.m */; };
+		E9AE30BE1EB1E304002B13DF /* TADelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AE30BD1EB1E304002B13DF /* TADelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,6 +18,8 @@
 		E9AE30AB1EB16D9A002B13DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9AE30B31EB16E2D002B13DF /* NSString+TAMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TAMarker.h"; sourceTree = "<group>"; };
 		E9AE30B41EB16E2D002B13DF /* NSString+TAMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TAMarker.m"; sourceTree = "<group>"; };
+		E9AE30BC1EB1E304002B13DF /* TADelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADelegate.h; sourceTree = "<group>"; };
+		E9AE30BD1EB1E304002B13DF /* TADelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				E9AE30B21EB16DF0002B13DF /* Strings */,
+				E9AE30BB1EB1E233002B13DF /* Delegate */,
 				E9AE30A91EB16D9A002B13DF /* HelpersTests.m */,
 				E9AE30AB1EB16D9A002B13DF /* Info.plist */,
 			);
@@ -64,6 +68,16 @@
 			);
 			name = Strings;
 			path = ../Helpers/Strings;
+			sourceTree = "<group>";
+		};
+		E9AE30BB1EB1E233002B13DF /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				E9AE30BC1EB1E304002B13DF /* TADelegate.h */,
+				E9AE30BD1EB1E304002B13DF /* TADelegate.m */,
+			);
+			name = Delegate;
+			path = ../Helpers/Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +149,7 @@
 			files = (
 				E9AE30AA1EB16D9A002B13DF /* HelpersTests.m in Sources */,
 				E9AE30B71EB16EFC002B13DF /* NSString+TAMarker.m in Sources */,
+				E9AE30BE1EB1E304002B13DF /* TADelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
