@@ -84,7 +84,12 @@ static NSDictionary *generalMarkers = nil;
 	NSString *result = [@"Hello $(REQ)" stringByResolvingMarkersRecursiveUsingDictionary:generalMarkers error:&error];
 	XCTAssertEqualObjects(@"Hello HAM NAWH MIR Was World! und MANS $(REQ)", result);
 	XCTAssertNotNil(error);
-	XCTAssertEqualObjects(@"REQ", [error.userInfo objectForKey:@""]);
+	XCTAssertEqualObjects(@"REQ", [error.userInfo objectForKey:TAMarkerNameErrorKey]);
+	
+}
+
+- (void)testDebug {
+	[@"Hallo $(REQ2) $(T3) + $(MY_DATE)" printResolvingReportUsingDictionary:generalMarkers];
 }
 
 @end

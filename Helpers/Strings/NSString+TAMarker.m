@@ -25,6 +25,19 @@
 
 #import "NSString+TAMarker.h"
 
+// NSValue containing the failed marker range in the original string
+NSString const *TAMarkerOriginalRangeErrorKey = @"TAMarkerOriginalRangeErrorKey";
+
+// NSValue containing the failed marker range in the resolved string.
+NSString const *TAMarkerResolvedRangeErrorKey = @"TAMarkerResolvedRangeErrorKey";
+
+// NSString containing the name of the marker that issue the recursion.
+NSString const *TAMarkerNameErrorKey = @"TAMarkerNameErrorKey";
+
+// NSArray list with marker stack until failed marker.
+NSString const *TAMarkerTraceErrorKey = @"TAMarkerTraceErrorKey";
+
+
 @implementation NSString (TAMarker)
 - (BOOL)hasMarkers {
 	return [self rangeOfString:@"$("].location < NSNotFound ? YES : NO;
@@ -74,7 +87,8 @@
 
 
 - (NSString *_Nonnull)_stringByResolvingMarkersUsingBlock:(NSString *_Nullable(^_Nullable)(NSString * _Nonnull marker))block
-													error:(NSError *_Nullable*_Nullable)error trace:(NSMutableArray *)trace
+													error:(NSError *_Nullable*_Nullable)error
+													trace:(NSArray **)trace
 										   recursionStack:(NSArray *)items
 											   failedItem:(NSString **)itemName {
 	if([self hasMarkers] == NO)
@@ -83,26 +97,19 @@
 	NSString *resolved = [self stringByResolvingMarkersUsingBlock:^NSString * _Nullable(NSString * _Nonnull marker) {
 		if(*itemName)
 			return nil;
+		NSArray *currentStack = [items arrayByAddingObject:marker];
 		
 		if([items containsObject:marker]) {
 			*itemName = marker;
+			*trace = currentStack;
 			return nil;
 		}
 		
-		NSArray *currentStack = [items arrayByAddingObject:marker];
 		
 		NSString *newString = block(marker);
 		
 		if([newString hasMarkers]) {
-			NSMutableDictionary *newTrace = [NSMutableDictionary dictionary];
-			newTrace[@"1. MARKER"] = marker;
-			newTrace[@"2. STRING"] = newString;
-			NSMutableArray *nextStack = [NSMutableArray array];
-			newTrace[@"3. NEXT"] = nextStack;
-			[trace addObject:newTrace];
-			
-			
-			newString = [newString _stringByResolvingMarkersUsingBlock:block error:error trace:nextStack recursionStack:currentStack failedItem:itemName];
+			newString = [newString _stringByResolvingMarkersUsingBlock:block error:error trace:trace recursionStack:currentStack failedItem:itemName];
 		}
 		
 		return newString;
@@ -114,9 +121,9 @@
 
 - (NSString *_Nonnull)stringByResolvingMarkersRecursiveUsingBlock:(NSString *_Nullable(^_Nullable)(NSString * _Nonnull marker))block
 												   error:(NSError *_Nullable*_Nullable)error {
-	NSMutableArray *trace = @[].mutableCopy;
+	NSArray *stack = nil;
 	NSString *failedItem = nil;
-	NSString *string = [self _stringByResolvingMarkersUsingBlock:block error:error trace:trace recursionStack:@[] failedItem:&failedItem];
+	NSString *string = [self _stringByResolvingMarkersUsingBlock:block error:error trace:&stack recursionStack:@[] failedItem:&failedItem];
 	if(failedItem) {
 		if(error) {
 			NSMutableDictionary *errorDesc = [NSMutableDictionary dictionary];
@@ -124,15 +131,70 @@
 			errorDesc[NSLocalizedFailureReasonErrorKey] = errorDesc[NSLocalizedRecoverySuggestionErrorKey] = [NSString stringWithFormat:@"Marker %@ is referencing itself.", failedItem];
 			
 			NSString *marker = [NSString stringWithFormat:@"$(%@)", failedItem];
-			errorDesc[@"TAOriginalErrorRange"] = [NSValue valueWithRange:[self rangeOfString:marker]];
-			errorDesc[@"TAResolvedErrorRange"] = [NSValue valueWithRange:[string rangeOfString:marker]];
-			errorDesc[@"TAMarkerName"] = failedItem;
-			errorDesc[@"TAMarkerTrace"] = trace;
+			errorDesc[TAMarkerOriginalRangeErrorKey] = [NSValue valueWithRange:[self rangeOfString:marker]];
+			errorDesc[TAMarkerResolvedRangeErrorKey] = [NSValue valueWithRange:[string rangeOfString:marker]];
+			errorDesc[TAMarkerNameErrorKey] = failedItem;
+			if(stack)
+				errorDesc[TAMarkerTraceErrorKey] = stack;
 			
 			*error = [NSError errorWithDomain:@"ch.tasoft.string.marker" code:102 userInfo:errorDesc];
 		}
 	}
 	
 	return string;
+}
+
+- (NSString*)_debug:(NSString *(^)(NSString *  marker))block
+		 stack:(NSArray *)items
+		 depth:(NSUInteger)depth {
+	if([self hasMarkers] == NO)
+		return self;
+	
+	void(^printIndention)() =^{
+		for(int e=0;e<depth;e++)
+			printf("    ");
+	};
+	
+	NSString *resolved = [self stringByResolvingMarkersUsingBlock:^NSString * _Nullable(NSString * _Nonnull marker) {
+		printIndention();
+		printf("MARKER  : %s\n", [marker UTF8String]);
+		printIndention();
+		printf("RESOLVED: ");
+		
+		NSArray *currentStack = [items arrayByAddingObject:marker];
+		
+		
+		if([items containsObject:marker]) {
+			printf("#Recursion! :: %s\n", [[currentStack componentsJoinedByString:@" -> "] UTF8String]);
+			printf("---------------------------------------------------\n");
+			return nil;
+		}
+		
+		NSString *newString = block(marker);
+		if(newString)
+			printf("%s\n", [newString UTF8String]);
+		else
+			printf("#Not Found.\n");
+		printf("---------------------------------------------------\n");
+		
+		if([newString hasMarkers])
+			newString = [newString _debug:block stack:currentStack depth:depth+1];
+		
+		return newString;
+	}];
+	
+	return resolved;
+}
+
+- (void)printResolvingReportUsingBlock:(NSString *(^)(NSString *  marker))block {
+	printf("Debug String: `%s`\n", [self UTF8String]);
+	NSString *result = [self _debug:block stack:@[] depth:1];
+	printf("======= RESULT =====\n%s\n===================\n", [result UTF8String]);
+}
+
+- (void)printResolvingReportUsingDictionary:(NSDictionary <NSString*,NSString*> *)dictionary {
+	[self printResolvingReportUsingBlock:^NSString *(NSString *marker) {
+		return dictionary[marker];
+	}];
 }
 @end

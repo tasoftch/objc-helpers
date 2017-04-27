@@ -47,16 +47,24 @@
 
 // Same mechanism but taking marker contents from a dictionary.
 - (NSString *)stringByResolvingMarkersRecursiveUsingDictionary:(NSDictionary <NSString*,NSString*> *)dictionary error:(NSError * *)error;
+
+// Debugging
+- (void)printResolvingReportUsingBlock:(NSString *(^)(NSString *  marker))block;
+- (void)printResolvingReportUsingDictionary:(NSDictionary <NSString*,NSString*> *)dictionary;
 @end
 
 
 // If an error occures, the user info of the error object may contain the following keys
 
 // NSValue containing the failed marker range in the original string
-extern NSString const *TAOriginalMarkerRangeErrorKey;
+extern NSString const *TAMarkerOriginalRangeErrorKey;
 
 // NSValue containing the failed marker range in the resolved string.
-extern NSString const *TAResolvedMarkerRangeErrorKey;
+extern NSString const *TAMarkerResolvedRangeErrorKey;
 
+// NSString containing the name of the marker that issue the recursion.
+extern NSString const *TAMarkerNameErrorKey;
 
+// NSArray list with marker stack until failed marker.
+extern NSString const *TAMarkerTraceErrorKey;
 
